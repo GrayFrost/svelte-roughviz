@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   import Bar from "$lib/RoughBar.svelte";
   import BarH from "$lib/RoughBarH.svelte";
   import Donut from "$lib/RoughDonut.svelte";
@@ -6,104 +7,232 @@
   import Pie from "$lib/RoughPie.svelte";
   import Scatter from "$lib/RoughScatter.svelte";
   import StackedBar from "$lib/RoughStackedBar.svelte";
+  import Network from "$lib/RoughNetwork.svelte";
+  import Force from "$lib/RoughForce.svelte";
+
+  import { range } from "d3-array";
+
+  let roughnessValue = 2.5;
+  let strokeWidthValue = 1;
+  let innerStrokeWidthValue = 1;
+  let fillWeightValue = 1;
+  let axisRoughnessValue = 0.5;
+  let fillStyleValue = "hachure";
+  let colorVal = "#87ceeb";
+  let strokeVal = "#000000";
+
+  let containerStyle = "width: 600px;height: 600px;";
+
+  const numNodes = 104;
+  const radius = 5;
+  const dataLength = 20;
+
+  const scatterData = {
+    x: Array.from({ length: dataLength }, () => Math.random() * dataLength),
+    y: Array.from({ length: dataLength }, () => Math.random() * dataLength),
+    radius: Array.from(
+      { length: dataLength },
+      () => Math.floor(Math.random() * 20) + 1
+    ),
+  };
+
+  function createNodes(numNodes) {
+    return range(numNodes).map(() => {
+      const randomValue = Math.random();
+
+      let multiplier =
+        randomValue < 0.05
+          ? 5
+          : randomValue < 0.6
+            ? 1
+            : randomValue < 0.8
+              ? 2
+              : 3;
+
+      return {
+        radius: multiplier * radius,
+      };
+    });
+  }
+
+  function createLinks(numNodes) {
+    return range(numNodes - 1).map((d, i) => ({
+      source: i,
+      target: i + 1,
+    }));
+  }
+
+  onMount(() => {
+    mounted = true;
+  });
 </script>
 
 <Bar
-  style="width: 500px;height: 500px;"
-  data="https://raw.githubusercontent.com/jwilber/random_data/master/flavors.csv"
-  labels="flavor"
-  values="price"
+  style={containerStyle}
+  data={{
+    labels: ["North", "South", "East", "West"],
+    values: [10, 5, 8, 3],
+  }}
+  roughness={roughnessValue}
+  margin={{ top: 100, left: 100, right: 100, bottom: 100 }}
+  highlight="steelblue"
+  stroke={strokeVal}
+  color={colorVal}
+  fillStyle={fillStyleValue}
+  strokeWidth={strokeWidthValue}
+  axisStrokeWidth={1}
+  innerStrokeWidth={innerStrokeWidthValue}
+  fillWeight={fillWeightValue}
+  axisRoughness={axisRoughnessValue}
 />
 
 <BarH
-  style="width: 500px;height: 500px;"
-  title="Vehicles I've Had"
-  titleFontSize="1.5rem"
-  legend={false}
-  margin={{ top: 50, bottom: 100, left: 160, right: 0 }}
+  style={containerStyle}
   data={{
-    labels: [
-      "1992 Ford Aerostar Van",
-      "2013 Kia Rio",
-      "1980 Honda CB 125s",
-      "1992 Toyota Tercel",
-    ],
-    values: [8, 4, 6, 2],
+    labels: ["North", "South", "East", "West"],
+    values: [10, 5, 8, 3],
   }}
-  xLabel="Time Owned (Years)"
-  strokeWidth="2"
-  fillStyle="zigzag-line"
-  highlight="gold"
+  roughness={roughnessValue}
+  margin={{ top: 100, left: 100, right: 100, bottom: 100 }}
+  highlight="steelblue"
+  stroke={strokeVal}
+  color={colorVal}
+  fillStyle={fillStyleValue}
+  strokeWidth={strokeWidthValue}
+  axisStrokeWidth={1}
+  innerStrokeWidth={innerStrokeWidthValue}
+  fillWeight={fillWeightValue}
+  axisRoughness={axisRoughnessValue}
+  padding={0.15}
 />
 
 <Donut
-  style="width: 500px;height: 500px;"
+  style={containerStyle}
   data={{
     labels: ["North", "South", "East", "West"],
     values: [10, 5, 8, 3],
   }}
-  title="Regions"
-  roughness="8"
-  colors={["red", "orange", "blue", "skyblue"]}
-  stroke="black"
-  strokeWidth="3"
-  fillStyle="cross-hatch"
-  fillWeight="3.5"
+  roughness={roughnessValue}
+  margin={{ top: 100, left: 100, right: 100, bottom: 100 }}
+  stroke={strokeVal}
+  color={colorVal}
+  highlight={"steelblue"}
+  fillStyle={fillStyleValue}
+  strokeWidth={strokeWidthValue}
+  axisStrokeWidth={1}
+  innerStrokeWidth={innerStrokeWidthValue}
+  fillWeight={fillWeightValue}
+  axisRoughness={axisRoughnessValue}
 />
 
 <Line
-  style="width: 500px;height: 500px;"
-  data="https://raw.githubusercontent.com/jwilber/random_data/master/profits.csv"
-  y1="revenue"
-  y2="cost"
-  y3="profit"
+  style={containerStyle}
+  data={{ y: scatterData["y"], y2: scatterData["x"] }}
+  margin={{ top: 100, left: 100, right: 100, bottom: 100 }}
+  roughness={roughnessValue}
+  stroke={strokeVal}
+  color={colorVal}
+  fillStyle={fillStyleValue}
+  strokeWidth={strokeWidthValue}
+  axisStrokeWidth={1}
+  innerStrokeWidth={innerStrokeWidthValue}
+  fillWeight={fillWeightValue}
+  axisRoughness={axisRoughnessValue}
+  circle={false}
 />
 
 <Pie
-  style="width: 500px;height: 500px;"
+  style={containerStyle}
   data={{
     labels: ["North", "South", "East", "West"],
     values: [10, 5, 8, 3],
   }}
-  title="Regions"
-  colors={["red", "orange", "blue", "skyblue"]}
-  roughness={8}
-  strokeWidth={3}
+  roughness={roughnessValue}
+  margin={{ top: 100, left: 100, right: 100, bottom: 100 }}
+  stroke={strokeVal}
+  color={colorVal}
+  fillStyle={fillStyleValue}
+  strokeWidth={strokeWidthValue}
+  axisStrokeWidth={1}
+  innerStrokeWidth={innerStrokeWidthValue}
+  fillWeight={fillWeightValue}
+  axisRoughness={axisRoughnessValue}
 />
 
 <Scatter
-  style="width: 500px;height: 500px;"
-  data="https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.csv"
-  title="Iris Scatter Plot"
-  x="sepal_width"
-  y="petal_length"
-  colorVar="species"
-  highlightLabel="species"
-  fillWeight="4"
-  radius="12"
-  colors={["pink", "coral", "skyblue"]}
-  stroke="black"
-  strokeWidth="0.4"
-  roughness="1"
-  font="0"
-  xLabel="sepal width"
-  yLabel="petal length"
-  curbZero="false"
+  style={containerStyle}
+  data={scatterData}
+  roughness={roughnessValue}
+  fillStyle={fillStyleValue}
+  margin={{ top: 100, left: 100, right: 100, bottom: 100 }}
+  stroke={strokeVal}
+  colors={colorVal}
+  radius={20}
+  strokeWidth={strokeWidthValue}
+  axisStrokeWidth={1}
+  innerStrokeWidth={innerStrokeWidthValue}
+  fillWeight={fillWeightValue}
+  axisRoughness={axisRoughnessValue}
 ></Scatter>
 
 <StackedBar
-  style="width: 500px;height: 500px;"
+  style={containerStyle}
   data={[
-    { month: "Jan", A: 20, B: 5, C: 10 },
-    { month: "Feb", A: 25, B: 10, C: 20 },
-    { month: "March", A: 30, B: 50, C: 10 },
+    { month: "Jan", A: 20, B: 5, C: 8, D: 12 },
+    { month: "Feb", A: 25, B: 10, C: 9, D: 5 },
+    { month: "March", A: 15, B: 5, C: 19, D: 9 },
   ]}
   labels="month"
-  title="Monthly Revenue"
-  roughness="2"
-  colors={["blue", "#f996ae", "skyblue", "#9ff4df"]}
-  fillWeight="0.35"
-  strokeWidth="0.5"
-  fillStyle="cross-hatch"
-  stroke="black"
+  roughness={roughnessValue}
+  fillStyle={fillStyleValue}
+  margin={{ top: 100, left: 100, right: 100, bottom: 100 }}
+  stroke={strokeVal}
+  color={colorVal}
+  strokeWidth={strokeWidthValue}
+  axisStrokeWidth={1}
+  innerStrokeWidth={innerStrokeWidthValue}
+  fillWeight={fillWeightValue}
+  axisRoughness={axisRoughnessValue}
 />
+
+<Network
+  style={containerStyle}
+  data={createNodes(35)}
+  links={createLinks(35)}
+  collision={3.05}
+  radiusExtent={[10, 60]}
+  roughness={roughnessValue}
+  fillStyle={fillStyleValue}
+  stroke={strokeVal}
+  color={colorVal}
+  margin={{ top: 100, left: 100, right: 100, bottom: 100 }}
+  textCallback={(d) => "Size: " + d.radius}
+  strokeWidth={strokeWidthValue}
+  axisStrokeWidth={1}
+  innerStrokeWidth={innerStrokeWidthValue}
+  fillWeight={fillWeightValue}
+  axisRoughness={axisRoughnessValue}
+/>
+
+<Force
+  style={containerStyle}
+  data={createNodes(numNodes)}
+  collision={1.2}
+  textCallback={(d) => "Size: " + d.radius}
+  radiusExtent={[10, 60]}
+  roughness={roughnessValue}
+  fillStyle={fillStyleValue}
+  stroke={strokeVal}
+  color={colorVal}
+  strokeWidth={strokeWidthValue}
+  innerStrokeWidth={innerStrokeWidthValue}
+  fillWeight={fillWeightValue}
+  axisRoughness={axisRoughnessValue}
+/>
+
+<style>
+  :global(.link) {
+    stroke: black;
+    stroke-width: 1;
+  }
+</style>
