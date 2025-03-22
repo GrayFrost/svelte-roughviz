@@ -1,23 +1,15 @@
 <script>
-  import { onMount } from "svelte";
   import { BarH } from "rough-viz";
+  import { onCreateChart } from "./utils.js";
 
   let { class: className, style, ...restProps } = $props();
 
-  let prefix = "barH";
+  let prefix = "bar-h";
   let uid = $props.id();
 
   let id = `${prefix}-${uid}`;
 
-  onMount(() => {
-    let instance = new BarH({
-      element: `#${id}`,
-      ...restProps,
-    });
-    return () => {
-      instance = null;
-    };
-  });
+  onCreateChart(BarH, id, restProps);
 </script>
 
 <div {id} style={style || "width:100vw;height:100vh;"} class={className}></div>

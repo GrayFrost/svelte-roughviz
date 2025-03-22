@@ -1,6 +1,6 @@
 <script>
-  import { onMount } from "svelte";
   import { Bar } from "rough-viz";
+  import { onCreateChart } from "./utils.js";
 
   let { class: className, style, ...restProps } = $props();
   let prefix = "bar";
@@ -8,15 +8,7 @@
 
   let id = `${prefix}-${uid}`;
 
-  onMount(() => {
-    let instance = new Bar({
-      element: `#${id}`,
-      ...restProps,
-    });
-    return () => {
-      instance = null;
-    };
-  });
+  onCreateChart(Bar, id, restProps);
 </script>
 
 <div {id} style={style || "width:100vw;height:100vh;"} class={className}></div>

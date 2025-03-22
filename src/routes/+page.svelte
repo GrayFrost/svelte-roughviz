@@ -62,9 +62,6 @@
     }));
   }
 
-  onMount(() => {
-    mounted = true;
-  });
 </script>
 
 <Bar
