@@ -44,4 +44,6 @@ Example for using the BarH-Chart.
 />
 ```
 
-Useful tip: You can use props `style` and `class` to customize the chart's style.
+Useful tip: 
+- You can use props `style` and `class` to customize the chart's style.
+- add `.link {// your style}` when using `Network` component.
