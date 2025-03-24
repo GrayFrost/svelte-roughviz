@@ -1,6 +1,6 @@
 <script>
   import { StackedBar } from "rough-viz";
-  import { onCreateChart } from "./utils.js";
+  import { useCreateChart } from "./utils.js";
 
   let { class: className, style, ...restProps } = $props();
 
@@ -9,7 +9,7 @@
 
   let id = `${prefix}-${uid}`;
 
-  onCreateChart(StackedBar, id, restProps);
+  useCreateChart(StackedBar, id, restProps);
 </script>
 
 <div {id} style={style || "width:100vw;height:100vh;"} class={className}></div>

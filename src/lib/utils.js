@@ -1,6 +1,6 @@
 import { onMount } from "svelte";
 
-export const onCreateChart = (ChartType, id, restProps) => {
+export const useCreateChart = (ChartType, id, restProps) => {
   // const uid = $props.id();
 
   // const prefix = ChartType.name;
