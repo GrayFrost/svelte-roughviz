@@ -2,6 +2,7 @@
 	"name": "svelte-roughviz",
 	"version": "0.0.1",
 	"description": "Svelte Wrapper for roughViz.js",
+	"license": "MIT",
 	"author": {
     "name": "GrayFrost",
     "email": "garyfrost4321@gmail.com",
