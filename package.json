@@ -16,7 +16,8 @@
 		"prepare": "svelte-kit sync || echo ''",
 		"prepack": "svelte-kit sync && svelte-package && publint",
 		"format": "prettier --write .",
-		"lint": "prettier --check ."
+		"lint": "prettier --check .",
+		"package:publish": "git push --follow-tags origin main && npm publish"
 	},
 	"files": [
 		"dist",
