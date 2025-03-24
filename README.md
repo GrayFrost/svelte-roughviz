@@ -17,6 +17,8 @@ npm install svelte-roughviz
 - Pie,
 - Scatter,
 - StackedBar
+- Network
+- Force
 
 ## Usage
 
@@ -47,3 +49,11 @@ Example for using the BarH-Chart.
 Useful tip: 
 - You can use props `style` and `class` to customize the chart's style.
 - add `.link {// your style}` when using `Network` component.
+
+## Development
+
+Run it via
+```bash
+npm run dev
+```
+This runs an example app (at `http://localhost:5173/`) via [sv](https://svelte.dev/docs/cli/overview).
