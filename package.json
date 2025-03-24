@@ -1,6 +1,13 @@
 {
 	"name": "svelte-roughviz",
 	"version": "0.0.1",
+	"description": "Svelte Wrapper for roughViz.js",
+	"author": {
+    "name": "GrayFrost",
+    "email": "garyfrost4321@gmail.com",
+    "url": "https://github.com/GrayFrost"
+  },
+  "bugs": "https://github.com/GrayFrost/svelte-roughviz/issues",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run prepack",
@@ -20,6 +27,10 @@
 	],
 	"svelte": "./dist/index.js",
 	"type": "module",
+	"repository": {
+    "type": "git",
+    "url": "git+https://github.com/GrayFrost/svelte-roughviz.git"
+  },
 	"exports": {
 		".": {
 			"svelte": "./dist/index.js"
@@ -46,8 +57,10 @@
 	"keywords": [
 		"svelte",
 		"roughviz",
+		"rough",
 		"viz",
-		"diagrams"
+		"diagrams",
+		"visualization"
 	],
 	"dependencies": {
 		"rough-viz": "^2.0.5"
